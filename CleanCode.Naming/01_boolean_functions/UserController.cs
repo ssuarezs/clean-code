@@ -2,7 +2,7 @@
 
 // Used for serialization/deserialization, replacing 'toJson()'
 
-namespace CleanCode.Naming.with_function_naming;
+namespace CleanCode.Naming._01_boolean_functions;
 // --- Data Transfer Objects (DTOs) and Domain Models ---
 
 // C# 'record' is ideal for immutable data like DTOs
