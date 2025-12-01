@@ -8,7 +8,7 @@ public sealed record Response(int StatusCode, string Body);
 
 public class User(int? id, string name, string surname, string email, string hashedPassword)
 {
-  public int? Id { get; set; } = id;
+  public int? Id { get; private set; } = id;
   public string Name { get; } = name;
   public string Surname { get; } = surname;
   public string Email { get; } = email;
@@ -17,6 +17,12 @@ public class User(int? id, string name, string surname, string email, string has
   public string ToJson()
   {
     return JsonSerializer.Serialize(this);
+  }
+
+
+  public void SetId(int? id)
+  {
+    Id = id;
   }
 }
 

@@ -25,8 +25,8 @@ public class UsersController(IUserRepository userRepository, IPasswordHasher pas
                 passwordHasher.Hash(userRequest.Password!)
             );
             
-            int userId = userRepository.Save(user);
-            user.Id = userId;
+            int id = userRepository.Save(user);
+            user.SetId(id);
 
             return new Response(201, user.ToJson());
         }

@@ -41,8 +41,8 @@ public class UsersController(IUserRepository userRepository, IPasswordHasher pas
         userRequest.Email!, 
         passwordHasher.Hash(userRequest.Password!)
       );
-      int userId = userRepository.Save(user);
-      user.Id = userId;
+      int id = userRepository.Save(user);
+      user.SetId(id);
       
       return user;
     }
