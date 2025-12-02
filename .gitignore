@@ -1,7 +1,66 @@
+# ---> General
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# ---> Rider / JetBrains
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# Rider caches
+.idea/.idea.<solution.name>.dir/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf/
+
+# ---> Build / Output
 bin/
 obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+out/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Bb]uild/
 
-.idea/
+# Publish artifacts
+publish/
+*.publishsettings
+
+# ---> .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.user
+*.rsuser
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+packages/*
+!packages/build/
+*.lock.json
+
+# ---> Coverage / Analysis
+coverage/
+*.coverage
+*.coveragexml
+.coverage/
+
+# dotCover
+.idea/**/dotCover/
+
+# ReSharper
