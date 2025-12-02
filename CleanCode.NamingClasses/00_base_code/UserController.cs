@@ -3,7 +3,7 @@ namespace CleanCode.NamingClasses._00_base_code;
 
 public class UsersController(IUserRepository repository, IPasswordHasher passwordHasher)
 {
-    public Response Post(UserRequest request)
+    public Response Post(CreateUserRequest request)
     {
         try
         {
@@ -30,7 +30,7 @@ public class UsersController(IUserRepository repository, IPasswordHasher passwor
     }
 
 
-    private User Create(UserRequest request)
+    private User Create(CreateUserRequest request)
     {
       EnsureUserDoesNotExist(request);
 
@@ -48,7 +48,7 @@ public class UsersController(IUserRepository repository, IPasswordHasher passwor
     }
 
 
-    private void EnsureUserDoesNotExist(UserRequest userRequest)
+    private void EnsureUserDoesNotExist(CreateUserRequest userRequest)
     {
       if (repository.ByEmail(userRequest.Email!) != null)
       {
@@ -57,7 +57,7 @@ public class UsersController(IUserRepository repository, IPasswordHasher passwor
     }
 
 
-    private static void EnsureRequestIsValid(UserRequest userRequest)
+    private static void EnsureRequestIsValid(CreateUserRequest userRequest)
     {
       if (!IsValidRequest(userRequest))
       {
@@ -66,7 +66,7 @@ public class UsersController(IUserRepository repository, IPasswordHasher passwor
     }
 
 
-    private static bool IsValidRequest(UserRequest userRequest)
+    private static bool IsValidRequest(CreateUserRequest userRequest)
     {
       return IsValidName(userRequest) &&
              IsValidSurname(userRequest) && 
@@ -75,7 +75,7 @@ public class UsersController(IUserRepository repository, IPasswordHasher passwor
     }
 
 
-    private static bool IsValidPassword(UserRequest userRequest)
+    private static bool IsValidPassword(CreateUserRequest userRequest)
     {
       return !string.IsNullOrWhiteSpace(userRequest.Password) &&
              userRequest.Password.Length >= 8 &&
@@ -83,20 +83,20 @@ public class UsersController(IUserRepository repository, IPasswordHasher passwor
     }
 
 
-    private static bool IsValidEmail(UserRequest userRequest)
+    private static bool IsValidEmail(CreateUserRequest userRequest)
     {
       return !string.IsNullOrWhiteSpace(userRequest.Email) && 
              userRequest.Email.Contains('@');
     }
 
 
-    private static bool IsValidSurname(UserRequest userRequest)
+    private static bool IsValidSurname(CreateUserRequest userRequest)
     {
       return !string.IsNullOrWhiteSpace(userRequest.Surname);
     }
 
 
-    private static bool IsValidName(UserRequest userRequest)
+    private static bool IsValidName(CreateUserRequest userRequest)
     {
       return !string.IsNullOrWhiteSpace(userRequest.Name);
     }

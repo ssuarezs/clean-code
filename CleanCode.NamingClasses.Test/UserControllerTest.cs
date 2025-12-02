@@ -5,19 +5,19 @@ using Moq;
 
 namespace CleanCode.NamingClasses.Test;
 
-public class UsersControllerTest
+public class UsersPostControllerTest
 {
   private readonly Mock<IUserRepository> _userRepositoryMock;
   private readonly Mock<IPasswordHasher> _passwordHasherMock;
         
-  private readonly UsersController _usersController;
+  private readonly UsersController _usersPostController;
 
-  public UsersControllerTest()
+  public UsersPostControllerTest()
   {
     _userRepositoryMock = new Mock<IUserRepository>();
     _passwordHasherMock = new Mock<IPasswordHasher>();
             
-    _usersController = new UsersController(
+    _usersPostController = new UsersController(
       _userRepositoryMock.Object, 
       _passwordHasherMock.Object
     );
@@ -26,9 +26,9 @@ public class UsersControllerTest
   [Fact]
   public void ShouldReturn400WithAnInvalidRequest()
   {
-    var invalidRequest = new UserRequest("", "Gridman", "Tiago@example.com", "password", "password");
+    var invalidRequest = new CreateUserRequest("", "Gridman", "Tiago@example.com", "password", "password");
 
-    Response response = _usersController.Post(invalidRequest);
+    Response response = _usersPostController.Post(invalidRequest);
 
     Assert.Equal(400, response.StatusCode);
     Assert.Equal("Invalid Request", response.Body);
@@ -37,13 +37,13 @@ public class UsersControllerTest
   [Fact]
   public void ShouldReturn409IfTheUserAlreadyExists()
   {
-    var existingUserRequest = new UserRequest("Tiago", "Gridman", "Tiago@example.com", "password123", "password123");
+    var existingUserRequest = new CreateUserRequest("Tiago", "Gridman", "Tiago@example.com", "password123", "password123");
             
     _userRepositoryMock
       .Setup(repo => repo.ByEmail("Tiago@example.com"))
       .Returns(new User(1, "Tiago", "Gridman", "Tiago@example.com", "hashedPassword"));
 
-    Response response = _usersController.Post(existingUserRequest);
+    Response response = _usersPostController.Post(existingUserRequest);
 
     Assert.Equal(409, response.StatusCode);
     Assert.Equal("User already exists", response.Body);
@@ -52,7 +52,7 @@ public class UsersControllerTest
   [Fact]
   public void ShouldCreateAValidUser()
   {
-    var validRequest = new UserRequest("Tiago", "Gridman", "Tiago@example.com", "password123", "password123");
+    var validRequest = new CreateUserRequest("Tiago", "Gridman", "Tiago@example.com", "password123", "password123");
     const int expectedId = 1;
     const string expectedHashedPassword = "hashedPassword";
 
@@ -68,7 +68,7 @@ public class UsersControllerTest
       .Setup(repo => repo.Save(It.IsAny<User>()))
       .Returns(expectedId);
 
-    Response response = _usersController.Post(validRequest);
+    Response response = _usersPostController.Post(validRequest);
 
     Assert.Equal(201, response.StatusCode);
             

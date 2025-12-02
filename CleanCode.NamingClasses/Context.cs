@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace CleanCode.NamingClasses;
 
-public sealed record UserRequest(string? Name, string? Surname, string? Email, string? Password, string? PasswordConfirmation);
+public sealed record CreateUserRequest(string? Name, string? Surname, string? Email, string? Password, string? PasswordConfirmation);
 
 public sealed record Response(int StatusCode, string Body);
 
