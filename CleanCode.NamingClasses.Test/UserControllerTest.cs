@@ -1,6 +1,6 @@
 
 
-using CleanCode.NamingClasses._00_base_code;
+using CleanCode.NamingClasses._01_classes_naming;
 using Moq;
 
 namespace CleanCode.NamingClasses.Test;
@@ -10,14 +10,14 @@ public class UsersPostControllerTest
   private readonly Mock<IUserRepository> _userRepositoryMock;
   private readonly Mock<IPasswordHasher> _passwordHasherMock;
         
-  private readonly UsersController _usersPostController;
+  private readonly UsersPostController _usersPostController;
 
   public UsersPostControllerTest()
   {
     _userRepositoryMock = new Mock<IUserRepository>();
     _passwordHasherMock = new Mock<IPasswordHasher>();
             
-    _usersPostController = new UsersController(
+    _usersPostController = new UsersPostController(
       _userRepositoryMock.Object, 
       _passwordHasherMock.Object
     );
